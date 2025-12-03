@@ -20,7 +20,6 @@ jobs:
       - name: Conda Info
         run: |
           conda info
-          conda list
 
       - name: Create Python environment
         shell: bash -l {0}
@@ -28,10 +27,10 @@ jobs:
           conda create -y -n env_pytorch python=3.9 --yes
           conda activate env_pytorch
           conda install pytorch torchvision torchaudio -c pytorch-nightly --yes
-          python --version
 
       - name: Run tests
         shell: bash -l {0}
         run: |
-          PYTORCH_DEBUG_MPS_ALLOCATOR=1 python3 test.py
-          PYTORCH_DEBUG_MPS_ALLOCATOR=1 python3 test2.py
+          conda activate env_pytorch
+          PYTORCH_DEBUG_MPS_ALLOCATOR=1 python test.py
+          PYTORCH_DEBUG_MPS_ALLOCATOR=1 python test2.py
