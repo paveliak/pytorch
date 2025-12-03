@@ -13,8 +13,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - run: |
-          curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh && sh Miniconda3-latest-MacOSX-arm64.sh -b
+#      - run: |
+#          curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh && sh Miniconda3-latest-MacOSX-arm64.sh -b
+
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+
+      - name: Conda Info
+        run: |
+          conda info
+          conda list
+
       - run: |
           conda create --name env_pytorch --yes python=3.9
       - run: |
