@@ -8,18 +8,13 @@ jobs:
     runs-on: ${{ matrix.runner }}
     strategy:
       matrix:
-#        runner: [macos-26, macos-15, macos-14]
-        runner: [macos-26]
+        runner: [macos-26, macos-15, macos-14]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v3
-
-      - name: Conda Info
-        run: |
-          conda info
 
       - name: Create Python environment
         shell: bash -l {0}
