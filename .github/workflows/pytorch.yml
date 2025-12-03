@@ -13,8 +13,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-#      - run: |
-#          curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh && sh Miniconda3-latest-MacOSX-arm64.sh -b
 
       - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v3
@@ -24,20 +22,16 @@ jobs:
           conda info
           conda list
 
-      - name: Create and use Python environment
+      - name: Create Python environment
         shell: bash -l {0}
         run: |
-          conda create -y -n env_pytorch python=3.9
-          conda activate testenv
-          python --version
-          
-#      - run: |
-#          conda create --name env_pytorch --yes python=3.9
-#      - run: |
-#          conda activate env_pytorch
-      - run: |
+          conda create -y -n env_pytorch python=3.9 --yes
+          conda activate env_pytorch
           conda install pytorch torchvision torchaudio -c pytorch-nightly --yes
-      - run: |
+          python --version
+
+      - name: Run tests
+        shell: bash -l {0}
+        run: |
           PYTORCH_DEBUG_MPS_ALLOCATOR=1 python3 test.py
-      - run: |
           PYTORCH_DEBUG_MPS_ALLOCATOR=1 python3 test2.py
