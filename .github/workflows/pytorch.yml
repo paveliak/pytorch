@@ -24,10 +24,17 @@ jobs:
           conda info
           conda list
 
-      - run: |
-          conda create --name env_pytorch --yes python=3.9
-      - run: |
-          conda activate env_pytorch
+      - name: Create and use Python environment
+        shell: bash -l {0}
+        run: |
+          conda create -y -n env_pytorch python=3.9
+          conda activate testenv
+          python --version
+          
+#      - run: |
+#          conda create --name env_pytorch --yes python=3.9
+#      - run: |
+#          conda activate env_pytorch
       - run: |
           conda install pytorch torchvision torchaudio -c pytorch-nightly --yes
       - run: |
